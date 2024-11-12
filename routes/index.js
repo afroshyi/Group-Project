@@ -13,28 +13,32 @@ router.get('/home', function(req, res, next) {
     title: 'Home' });
 });
 
-/* GET Apointments page. */
+/* GET Appointments page. */
 router.get('/appointments', function(req, res, next) {
   res.render('appointments', { 
-    title: 'Book an Appointment'
+    title: 'Book an Appointment' 
   });
 });
 
-router.get('/contact', function(req, res, next) {
-  res.render('contact', { 
-    title: 'Contact Us'
-  });
-});
-router.post('/appointments', function(req, res, next) {
+/* POST Appointments data and render confirmation */
+router.post('/appointments', async function(req, res, next) {
   const appointmentData = req.body;
-  console.log(appointmentData);
-  res.render('appointment-confirmation', { 
-    title: 'Appointment Confirmed',
-    appointment: appointmentData
-  });
+
+  // Save the new appointment to the database
+  try {
+    const newAppointment = new Appointment(appointmentData);
+    await newAppointment.save();
+    console.log('Appointment saved:', appointmentData);
+
+    // Render confirmation page with the appointment details
+    res.render('appointment-confirmation', { 
+      title: 'Appointment Confirmed',
+      appointment: appointmentData
+    });
+  } catch (error) {
+    console.error('Error saving appointment:', error);
+    next(error);
+  }
 });
-
-
-
 
 module.exports = router;
