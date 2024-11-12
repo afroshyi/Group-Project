@@ -41,4 +41,9 @@ router.post('/appointments', async function(req, res, next) {
   }
 });
 
+router.get('/contact', function(req, res, next) {
+  res.render('contact', { 
+    title: 'Contact Us' });
+});
+
 module.exports = router;
