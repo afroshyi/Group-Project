@@ -67,12 +67,13 @@ body {
     align-items: center;
     padding: 15px 30px;
     font-size: 16px;
-    color: black;
+    color: white;
     gap: 10px;
     border: 2px solid black;
     border-radius: 50px;
     cursor: pointer;
     background-color: transparent;
+    background: #007bff;
 }
 
 .right-side {
